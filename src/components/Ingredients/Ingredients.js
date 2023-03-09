@@ -8,7 +8,9 @@ const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
 
   useEffect(() => {
-    fetch("https://react-hooks-update-c90ab-default-rtdb.firebaseio.com/ingredients.json")
+    fetch(
+      "https://react-hooks-update-c90ab-default-rtdb.firebaseio.com/ingredients.json"
+    )
       .then((response) => response.json())
       .then((responseData) => {
         const loadedIngredients = [];
@@ -32,11 +34,14 @@ const Ingredients = () => {
   }, []);
 
   const addIngredientHandler = (ingredient) => {
-    fetch("https://react-hooks-update-c90ab-default-rtdb.firebaseio.com/ingredients.json", {
-      method: "POST",
-      body: JSON.stringify(ingredient),
-      headers: { "Content-Type": "application/json" },
-    })
+    fetch(
+      "https://react-hooks-update-c90ab-default-rtdb.firebaseio.com/ingredients.json",
+      {
+        method: "POST",
+        body: JSON.stringify(ingredient),
+        headers: { "Content-Type": "application/json" },
+      }
+    )
       .then((response) => {
         return response.json();
       })
@@ -49,9 +54,16 @@ const Ingredients = () => {
   };
 
   const removeIngredientHandler = (ingredientId) => {
-    setUserIngredients((prevIngredients) =>
-      prevIngredients.filter((ingredient) => ingredient.id !== ingredientId)
-    );
+    fetch(
+      `https://react-hooks-update-c90ab-default-rtdb.firebaseio.com/ingredients/${ingredientId}.json`,
+      {
+        method: "DELETE",
+      }
+    ).then((response) => {
+      setUserIngredients((prevIngredients) =>
+        prevIngredients.filter((ingredient) => ingredient.id !== ingredientId)
+      );
+    });
   };
 
   return (
